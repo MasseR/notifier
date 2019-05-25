@@ -3,22 +3,24 @@ module Notify
   ( HasNotify(..)
   , WithNotify
   , Message(..)
-  , notify )
+  , Client
+  , notify
+  , withSession )
   where
 
 import           Control.Monad.Reader
-import           DBus.Notify          (Client, Note(..))
+import           Control.Monad.Trans  (liftIO)
+import           DBus.Notify          (Client, Note (..))
 import qualified DBus.Notify          as N
-import Control.Monad.Trans (liftIO)
 
 class HasNotify a where
   getClient :: a -> Client
 
-type WithNotify env m = (MonadReader env m, HasNotify env)
+type WithNotify env m = (MonadReader env m, HasNotify env, MonadIO m)
 
 newtype Message = Message String
 
-notify :: (MonadIO m, WithNotify env m) => Message -> m ()
+notify :: WithNotify env m => Message -> m ()
 notify (Message m) = do
   client <- asks getClient
   let note = N.Note { appName = "notifier"
@@ -30,3 +32,10 @@ notify (Message m) = do
                     , expiry = N.Dependent
                     }
   void $ liftIO $ N.notify client note
+
+-- | Run an action with a notify session
+--
+-- The api doesn't seem to have anything to do with close or disconnect,
+-- but I'm making this function for symmetricity sake with DB.hs
+withSession :: (Client -> IO a) -> IO a
+withSession f = N.connectSession >>= f

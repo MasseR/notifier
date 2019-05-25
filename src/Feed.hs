@@ -1,4 +1,3 @@
-{-# LANGUAGE OverloadedStrings #-}
 module Feed
   ( getFeedContent
   , Content(..)
@@ -6,17 +5,20 @@ module Feed
   ) where
 
 
-import           Data.ByteString.Lazy (ByteString)
+import qualified Data.ByteString      as B
+import qualified Data.ByteString.Lazy as LB
 import           Data.Maybe           (mapMaybe)
 import           Data.Text            (Text)
-import qualified Data.Text as T
+import qualified Data.Text            as T
+import qualified Data.Text.Encoding   as T
 import           Text.Feed.Import     (parseFeedSource)
 import           Text.Feed.Query
 import           Text.Feed.Types
-import Debug.Trace
 
+type LByteString = LB.ByteString
+type ByteString = B.ByteString
 
-data Content = Content { hash    :: Text
+data Content = Content { hash    :: ByteString
                        , content :: Text
                        } deriving Show
 
@@ -25,7 +27,7 @@ getFeedContent = mapMaybe getContent . getFeedItems
   where
     getContent :: Item -> Maybe Content
     getContent item = Content <$> getId item <*> (T.strip <$> getItemTitle item)
-    getId = fmap (snd . traceShowId) . getItemId
+    getId = fmap (T.encodeUtf8 . snd) . getItemId
 
-parseFeed :: ByteString -> Maybe Feed
+parseFeed :: LByteString -> Maybe Feed
 parseFeed = parseFeedSource
