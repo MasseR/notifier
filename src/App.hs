@@ -2,12 +2,14 @@ module App
   ( App(..)
   ) where
 
-import Notify
-import DB
+import           Config
+import           DB
+import           Notify
 
 data App =
-  App { notifier :: Client
-      , connection :: Connection }
+  App { notifier   :: Client
+      , connection :: Connection
+      , config     :: Config }
 
 instance HasNotify App where
   getClient = notifier

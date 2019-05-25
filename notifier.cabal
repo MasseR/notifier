@@ -22,9 +22,11 @@ executable notifier
                      , Feed
                      , App
                      , DB
+                     , Config
   -- other-extensions:
   build-depends:       base >=4.11 && <4.13
                      , bytestring
+                     , dhall
                      , directory
                      , fdo-notify
                      , feed
