@@ -20,6 +20,7 @@ executable notifier
   main-is:             Main.hs
   other-modules:       Notify
                      , Feed
+                     , App
   -- other-extensions:
   build-depends:       base >=4.11 && <4.13
                      , bytestring

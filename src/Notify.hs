@@ -3,6 +3,7 @@ module Notify
   ( HasNotify(..)
   , WithNotify
   , Message(..)
+  , Client
   , notify )
   where
 
