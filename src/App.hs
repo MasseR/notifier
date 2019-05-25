@@ -3,9 +3,15 @@ module App
   ) where
 
 import Notify
+import DB
 
-newtype App = App { notifier :: Client }
+data App =
+  App { notifier :: Client
+      , connection :: Connection }
 
 instance HasNotify App where
   getClient = notifier
+
+instance HasDB App where
+  getConnection = connection
 

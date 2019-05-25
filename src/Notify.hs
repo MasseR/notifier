@@ -4,7 +4,8 @@ module Notify
   , WithNotify
   , Message(..)
   , Client
-  , notify )
+  , notify
+  , withSession )
   where
 
 import           Control.Monad.Reader
@@ -31,3 +32,10 @@ notify (Message m) = do
                     , expiry = N.Dependent
                     }
   void $ liftIO $ N.notify client note
+
+-- | Run an action with a notify session
+--
+-- The api doesn't seem to have anything to do with close or disconnect,
+-- but I'm making this function for symmetricity sake with DB.hs
+withSession :: (Client -> IO a) -> IO a
+withSession f = N.connectSession >>= f

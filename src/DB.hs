@@ -8,6 +8,8 @@ module DB
   , seen
   , setSeen
   , forUnseen
+  , SQL.Connection
+  , SQL.withConnection
   ) where
 
 import Data.ByteString (ByteString)
