@@ -1,5 +1,7 @@
 # Notifier
 
+[![Build Status](https://travis-ci.org/MasseR/notifier.svg?branch=master)](https://travis-ci.org/MasseR/notifier)
+
 A simple tool for creating `libnotify` style notifications when a new rss feed
 item has been received.
 
