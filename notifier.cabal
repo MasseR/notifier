@@ -20,14 +20,21 @@ executable notifier
   main-is:             Main.hs
   other-modules:       Notify
                      , Feed
+                     , App
+                     , DB
+                     , Config
   -- other-extensions:
   build-depends:       base >=4.11 && <4.13
                      , bytestring
+                     , dhall
+                     , directory
                      , fdo-notify
                      , feed
+                     , filepath
+                     , lens
                      , mtl
+                     , sqlite-simple
                      , text
                      , wreq
-                     , lens
   hs-source-dirs:      src
   default-language:    Haskell2010
