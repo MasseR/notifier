@@ -18,11 +18,13 @@ extra-source-files:  CHANGELOG.md
 
 executable notifier
   main-is:             Main.hs
-  -- other-modules:
+  other-modules:       Notify
+                     , Feed
   -- other-extensions:
   build-depends:       base >=4.11 && <4.13
-                     , rss
+                     , bytestring
                      , fdo-notify
+                     , feed
                      , mtl
                      , text
   hs-source-dirs:      src
