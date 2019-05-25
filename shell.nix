@@ -11,6 +11,7 @@ nixpkgs.buildEnv {
     ghcid
     stylish-haskell
     hasktags
+    cabal-install
     (ghcWithHoogle (_: pkg.buildInputs ++ pkg.propagatedBuildInputs))
   ];
 }
