@@ -24,7 +24,7 @@ executable notifier
                      , DB
                      , Config
   -- other-extensions:
-  build-depends:       base >=4.11 && <4.13
+  build-depends:       base >=4.11 && <5
                      , bytestring
                      , dhall
                      , directory
